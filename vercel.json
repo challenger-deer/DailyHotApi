@@ -1,12 +1,9 @@
 {
-  "buildCommand": "npm run build",
+  "buildCommand": "npx esbuild src/app.tsx --bundle --platform=node --format=esm --target=node20 --outfile=api/_app.js --packages=external --jsx=automatic --jsx-import-source=hono/jsx",
   "builds": [
     {
       "src": "api/index.ts",
-      "use": "@vercel/node",
-      "config": {
-        "includeFiles": ["dist/**"]
-      }
+      "use": "@vercel/node"
     }
   ],
   "routes": [
