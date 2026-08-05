@@ -6,7 +6,10 @@ import chalk from "chalk";
 let pathOption: (typeof transports.File)[] = [];
 
 // 日志输出目录
-if (config.USE_LOG_FILE) {
+// Vercel 的 /var/task/ 是只读文件系统，winston FileTransport 写日志时会
+// 抛 EROFS。所以检测到 Vercel 环境时直接跳过文件日志，只保留 console。
+// Docker 本地不受影响（VERCEL 环境变量不会设置）。
+if (config.USE_LOG_FILE && !process.env.VERCEL) {
   try {
     pathOption = [
       new transports.File({
