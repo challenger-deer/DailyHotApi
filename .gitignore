@@ -13,6 +13,9 @@ dist
 api/_app.js
 *.local
 .env
+# api/index.js 是 esbuild bundle 产物，给 Vercel 部署用的入口。
+# 故意 commit 到 git（不忽略），保证 Vercel 部署包一定有它，不依赖
+# buildCommand 跑没跑、产物有没有被 Vercel 自动包含。
 
 # Editor directories and files
 .vscode/*
